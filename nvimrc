@@ -10,17 +10,25 @@ call plug#begin('~/.config/nvim/plugged')
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'ElmCast/elm-vim'
 Plug 'tpope/vim-fugitive'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'w0rp/ale'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'leafgarland/typescript-vim'
 Plug 'bling/vim-airline'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-fireplace'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mhartington/oceanic-next'
+Plug 'mhinz/vim-grepper' 
 
 " Initialize plugin system
 call plug#end()
+
+let g:python2_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
 
 python3 <<EOF
 import vim
@@ -82,7 +90,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
-
+let g:airline_powerline_fonts = 1
+let g:airline_theme='oceanicnext'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
@@ -116,3 +125,19 @@ tnoremap <Esc> <C-\><C-n>
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
+let g:ctrlp_max_files=0
+autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype typescript setlocal ts=2 sw=2 expandtab
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+
+if (has("termguicolors"))
+  set termguicolors
+ endif
+
+colorscheme OceanicNext
+
+" Open the grepper
+ nnoremap <leader>gg :Grepper<CR> 
